@@ -10,8 +10,8 @@ process.env.V8_TURBOFAN_INTRINSICS = '1';
 
 const totalMemMB = Math.floor(os.totalmem() / (1024 * 1024));
 process.env.UV_THREADPOOL_SIZE = totalMemMB <= 1024 ? '4' : totalMemMB <= 2048 ? '8' : (os.cpus().length * 2).toString();
-process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --abort-on-uncaught-exception --max-http-header-size=8192 --stack-trace-limit=50 --max-semi-space-size=256 --max-executable-size=512 --strict --harmony --experimental-modules`;
-process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)} --max_executable_size=512 --harmony`;
+process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --abort-on-uncaught-exception --max-http-header-size=8192 --stack-trace-limit=50 --max-semi-space-size=256 --strict --harmony --experimental-modules`;
+process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)} --harmony`;
 
 import {
     loadConfig
@@ -811,6 +811,7 @@ async function filesInit() {
                     moduleName,
                     filePath: file,
                     message: err.message,
+                    error: err.message,
                     success: false
                 };
             } else {
@@ -818,6 +819,7 @@ async function filesInit() {
                 global.plugins[moduleName] = module.default || module;
                 return {
                     moduleName,
+                    filePath: file,
                     success: true
                 };
             }
@@ -828,6 +830,7 @@ async function filesInit() {
                 moduleName,
                 filePath: file,
                 message: e.message,
+                error: e,
                 success: false
             };
         }
@@ -835,19 +838,15 @@ async function filesInit() {
 
     try {
         const results = await Promise.allSettled(importPromises);
-        const [successResults, errorResults] = results.reduce(([success, error], result) => {
-            if (result.status === 'fulfilled') success.push(result.value.moduleName);
-            else error.push({
-                filePath: result.reason.filePath,
-                message: result.reason.message
-            });
-            return [success, error];
-        }, [
-            [],
-            []
-        ]);
+        const successResults = results.filter((result) => result.status === 'fulfilled').map((result) => result.value.moduleName);
+        const errorResults = results.filter((result) => result.status === 'rejected').map((result) => ({
+            filePath: result.reason.filePath,
+            error: result.reason.error
+        }));
 
-        global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)));
+        global.plugins = Object.fromEntries(
+            Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b))
+        );
 
         const loadedPluginsMsg = `Loaded ${CommandsFiles.length} JS Files total.`;
         const successPluginsMsg = `✅ Success Plugins:\n${successResults.length} total.`;
@@ -857,7 +856,9 @@ async function filesInit() {
         logger.info(successPluginsMsg);
         logger.error(errorPluginsMsg);
 
-        const errorMessagesText = errorResults.map((error, index) => `❗ *Error ${index + 1}:* ${error.filePath}\n - ${error.message}`).join('');
+        const errorMessagesText = errorResults
+            .map((error, index) => `❗ *Error ${index + 1}:* ${error.filePath}\n - ${error.error.message}`)
+            .join('\n');
 
         const messageText = `- 🤖 *Loaded Plugins Report* 🤖\n` +
             `🔧 *Total Plugins:* ${CommandsFiles.length}\n` +
@@ -900,6 +901,8 @@ async function libFiles() {
                 delete global.lib[moduleName.slice(0, -3)];
                 return {
                     moduleName,
+                    filePath: file,
+                    error: err.message,
                     success: false
                 };
             } else {
@@ -907,6 +910,7 @@ async function libFiles() {
                 setNestedObject(global.lib, moduleName.slice(0, -3), module);
                 return {
                     moduleName,
+                    filePath: file,
                     success: true
                 };
             }
@@ -915,14 +919,42 @@ async function libFiles() {
             delete global.lib[moduleName.slice(0, -3)];
             return {
                 moduleName,
+                filePath: file,
+                error: e,
                 success: false
             };
         }
     });
 
     try {
-        await Promise.allSettled(importPromises);
+        const results = await Promise.allSettled(importPromises);
+        const successResults = results.filter((result) => result.status === 'fulfilled').map((result) => result.value.moduleName);
+        const errorResults = results.filter((result) => result.status === 'rejected').map((result) => ({
+            filePath: result.reason.filePath,
+            error: result.reason.error
+        }));
+
         global.lib = Object.fromEntries(Object.entries(global.lib[''].lib).sort(([a], [b]) => a.localeCompare(b)));
+
+        const loadedPluginsMsg = `Loaded ${CommandsFiles.length} JS Files total.`;
+        const successPluginsMsg = `✅ Success Lib:\n${successResults.length} total.`;
+        const errorPluginsMsg = `❌ Error Lib:\n${errorResults.length} total`;
+
+        logger.warn(loadedPluginsMsg);
+        logger.info(successPluginsMsg);
+        logger.error(errorPluginsMsg);
+        
+        const errorMessagesText = errorResults
+            .map((error, index) => `❗ *Error ${index + 1}:* ${error.filePath}\n - ${error.error.message}`)
+            .join('\n');
+
+        const messageText = `- 🤖 *Loaded Plugins Report* 🤖\n` +
+            `🔧 *Total Plugins:* ${CommandsFiles.length}\n` +
+            `✅ *Success:* ${successResults.length}\n` +
+            `❌ *Error:* ${errorResults.length}\n` +
+            (errorResults.length > 0 ? errorMessagesText : '');
+            
+        logger.info(messageText);
     } catch (e) {
         logger.error(`Error occurred while importing libraries: ${e}`);
     }
@@ -1140,9 +1172,9 @@ async function createCertificate() {
         recursive: true
     });
     try {
-        const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt');
-        const text = await response.text();
-        writeFileSync(certFilePath, text);
+        const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem');
+        const buffer = await response.arrayBuffer() || Buffer.alloc(0);
+        writeFileSync(certFilePath, buffer);
         process.env.NODE_EXTRA_CA_CERTS = certFilePath;
     } catch (error) {
         console.error('Error downloading certificate:', error);
