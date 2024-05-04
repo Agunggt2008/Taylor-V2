@@ -10,8 +10,6 @@ process.env.V8_TURBOFAN_INTRINSICS = '1';
 
 const totalMemMB = Math.floor(os.totalmem() / (1024 * 1024));
 process.env.UV_THREADPOOL_SIZE = totalMemMB <= 1024 ? '4' : totalMemMB <= 2048 ? '8' : (os.cpus().length * 2).toString();
-process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --initial-old-space-size=${Math.floor(totalMemMB * 0.4)} --abort-on-uncaught-exception`;
-process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)}`;
 
 import {
     loadConfig
@@ -315,12 +313,12 @@ process
     .on('exit', (code) => logger.info({
         code
     }, 'Process Exit'))
-    .on('warning', (warning) => /*logger.warn({ warning }, 'Node Warning')*/ null)
+    .on('warning', (warning) => null)
     .on('disconnect', () => logger.warn('Node Disconnected'))
     .on('message', (message) => logger.info({
         message
     }, 'Node Message'))
-    .on('multipleResolves', (type, promise) => /*logger.warn({ type, promise }, 'Multiple Resolves')*/ null)
+    .on('multipleResolves', (type, promise) => null)
     .on('childProcess', (childProcess) => logger.info({
         childProcess
     }, 'Child Process Event'));

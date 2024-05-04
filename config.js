@@ -9,16 +9,14 @@ import {
 
 import moment from "moment-timezone"
 import colors from "colors"
-import pkg from '@whiskeysockets/baileys';
-
 const {
     WA_DEFAULT_EPHEMERAL
-} = pkg;
+} = (await import('@whiskeysockets/baileys')).default;
 
 async function loadConfig() {
     try {
 
-        /*custom colors for beautiful console.log()*/
+        /** custom colors for beautiful console.log()  **/
         colors.setTheme({
             main: ['brightBlue', 'bold'],
             silly: 'rainbow',
@@ -33,14 +31,14 @@ async function loadConfig() {
             error: 'brightRed'
         });
 
-        /*Oᴡɴᴇʀ number*/
+        /** Oᴡɴᴇʀ number  **/
         global.owner = [
             ["6282195322106", "️𝑾𝒖𝒅𝒚𝒔𝒐𝒇𝒕 - 𝑶𝒘𝒏𝒆𝒓", true]
         ]
         global.mods = ["6282195322106"]
         global.prems = ["6282195322106"]
 
-        /*Website*/
+        /** Website  **/
         global.APIs = {
             amel: "https://melcanz.com",
             bg: "http://bochil.ddns.net",
@@ -58,7 +56,7 @@ async function loadConfig() {
             btchx: "https://api.botcahx.biz.id"
         }
 
-        /*Apikey*/
+        /** Apikey  **/
         global.APIKeys = {
             "https://api.neoxr.my.id": pickRandom(["5VC9rvNx", "lucycat"]),
             "https://api.lolhuman.xyz": pickRandom(["043c5de3b7cd6b1b8f2a0f90", "e1a815979e6adfc071b7eafc", "ed78c137a46873c5b8e5fe3b", "IchanZX", "GataDios"]),
@@ -72,32 +70,32 @@ async function loadConfig() {
             "https://api.botcahx.biz.id": "Admin"
         }
 
-        /*Lolhuman*/
+        /** Lolhuman  **/
         global.lolkey = pickRandom(["043c5de3b7cd6b1b8f2a0f90", "e1a815979e6adfc071b7eafc", "ed78c137a46873c5b8e5fe3b", "IchanZX", "GataDios"])
-        /*XyroineeApi*/
+        /** XyroineeApi  **/
         global.xyro = "yqiBQF86F4"
 
-        /*Number*/
+        /** Number  **/
         global.nomorbot = "6281779570422"
         global.nomorown = "6282195322106"
         global.namebot = " ᴛᴀyʟᴏʀ-ʙᴏᴛ あ⁩ "
         global.nameown = "「 𝑾𝒖𝒅𝒚𝒔𝒐𝒇𝒕 」"
 
-        /* Random */
+        /** Random  **/
         global.pmenus = pickRandom(["乂", "◈", "➭", "ଓ", "⟆•", "⳻", "•", "↬", "◈", "⭑", "ᯬ", "◉", "᭻", "»", "〆", "々", "⛥", "✗", "⚜", "⚚", "♪"])
         global.htjava = pickRandom(["乂", "⛶", "❏", "⫹⫺", "☰", "⎔", "✦", "⭔", "⬟", "⛊", "⚝"])
 
-        /*Watermark*/
+        /** Watermark  **/
         global.wm = "                「 ᴛᴀyʟᴏʀ-ʙᴏᴛ あ⁩ 」"
         global.wm2 = "꒷︶꒷꒥꒷ ‧₊˚ ꒰ฅ˘օառɛʀ˘ฅ ꒱ ‧₊˚꒷︶꒷꒥꒷"
         global.wm3 = htjava + " ᴛᴀyʟᴏʀ-ʙᴏᴛ"
 
-        /*Thumbnail*/
+        /** Thumbnail  **/
         global.giflogo = VideoGalau()
         global.fla = pickRandom(ImgLogoFlam())
         global.flaaa = ImgLogoDynamic()
 
-        /*Link*/
+        /** Link  **/
         global.sig = "https://www.instagram.com/wudysoft"
         global.sgh = "https://www.github.com/AyGemuy"
         global.sgc = "https://s.id/Taylor-V2"
@@ -106,21 +104,21 @@ async function loadConfig() {
         global.sfb = "https://www.facebook.com/"
         global.syt = "https://www.youtube.com/"
 
-        /*Nsfw*/
+        /** Nsfw  **/
         global.premnsfw = true
 
-        /*Type*/
+        /** Type  **/
         global.dpptx = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         global.ddocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         global.dxlsx = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         global.dpdf = "application/pdf"
         global.drtf = "text/rtf"
 
-        /*Fake*/
+        /** Fake  **/
         global.fsizedoc = SizeDoc()
         global.fpagedoc = PageDoc()
 
-        /* Hiasan */
+        /** Hiasan  **/
         global.dmenut = htjava + "───『"
         global.dmenub = "│" + pmenus
         global.dmenub2 = "│" + pmenus
@@ -129,7 +127,7 @@ async function loadConfig() {
         global.htki = htjava + "───『"
         global.htka = "』───" + htjava
 
-        /* Thumbnail */
+        /** Thumbnail  **/
         global.hwaifu = ImgWaifu()
         global.hbeach = ImgCosplay()
         global.thumbnailUrl = ImgBoneka()
@@ -145,16 +143,16 @@ async function loadConfig() {
         global.thumbdoc = pickRandom(["https://minimalistic-wallpaper.demolab.com/?random", "https://picsum.photos/2560/1600", ImgEstetik()])
         global.logo = pickRandom(["https://minimalistic-wallpaper.demolab.com/?random", "https://picsum.photos/2560/1600", ImgMountain()])
 
-        /* Begin */
+        /** Begin  **/
         global.ucapan = Pagi()
         global.ephemeral = WA_DEFAULT_EPHEMERAL
 
-        /* Global Random */
+        /** Global Random  **/
         global.doc = pickRandom(["application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/msword", "application/pdf", "text/rtf"])
 
         global.knimg = pickRandom(["https://minimalistic-wallpaper.demolab.com/?random", "https://picsum.photos/2560/1600", ImgMountain()])
 
-        /*Watermark*/
+        /** Watermark  **/
         global.lopr = "🅟"
         global.lolm = "Ⓛ"
         global.cmenut = htjava + "───『"
@@ -169,7 +167,7 @@ async function loadConfig() {
         global.stickauth = author + "\nwa.me/" + nomorbot
         global.multiplier = 69
 
-        /*Pesan*/
+        /** Pesan  **/
         global.eror = "_*`Bot error ❌`*_";
         global.wait = "_*`Please wait ⏳`*_";
         global.render = "_*`Rendering 📍`*_";
@@ -177,7 +175,7 @@ async function loadConfig() {
         global.webs = "https://s.id/Cerdasin62"
         global.gcwangsaf = "https://chat.whatsapp.com/LqJoQr4IdBLAXsxd1PkNph"
 
-        /*Donasi*/
+        /** Donasi  **/
         global.saweria = "https://saweria.com/wudysoft"
         global.dana = "0887435373103"
         global.pulsa = "082195322106"
@@ -192,7 +190,7 @@ async function loadConfig() {
         global.psaweria = "https://saweria.com/Wudysoft"
 
 
-        /*Emoji*/
+        /** Emoji  **/
         global.rpg = {
             emoticon(string) {
                 string = string.toLowerCase()
@@ -325,7 +323,7 @@ watchFile(file, () => {
     import(`${file}?update=${Date.now()}`)
 })
 
-/* Selamat Pagi */
+/** Selamat Pagi  **/
 function Pagi() {
     const waktunya = moment.tz("Asia/Makassar").format("HH");
     return waktunya >= 24 ? "Selamat Begadang 🗿" :
@@ -336,13 +334,13 @@ function Pagi() {
         "Selamat Pagi 🗿";
 }
 
-/* Randomizer */
+/** Randomizer  **/
 function pickRandom(list) {
     const shuffledList = list.slice().sort(() => Math.random() - 0.5);
     return shuffledList[Math.floor(Math.random() * shuffledList.length)];
 }
 
-/* Img Array */
+/** Img Array  **/
 function ImgCosplay() {
     const ArrImg = [
         "https://i.pinimg.com/originals/13/8f/a9/138fa9fab411166bb8c5523bf710ff42.jpg",
@@ -449,7 +447,7 @@ function ImgCosplay() {
     return ArrImg
 }
 
-/* Img Array */
+/** Img Array  **/
 function ImgMountain() {
     const ResNo = pickRandom([
         "https://i.pinimg.com/originals/aa/5d/6b/aa5d6b2c0cb3e132256d0a34590e235e.jpg",
@@ -555,7 +553,7 @@ function ImgMountain() {
     return ResNo
 }
 
-/* Img Dynamic */
+/** Img Dynamic  **/
 function ImgLogoDynamic() {
     const randomId = pickRandom([
         "04ca85c5-a4c1-4582-8296-7fb8cbdf7df1",
@@ -619,7 +617,7 @@ function ImgLogoDynamic() {
     return `https://dynamic.brandcrowd.com/asset/logo/${randomId}/logo?v=4&text=`
 }
 
-/* Img Flamming */
+/** Img Flamming  **/
 function ImgLogoFlam() {
     const Flam = [
         "https://flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=amped-logo&doScale=true&scaleWidth=800&scaleHeight=500&text=",
@@ -641,7 +639,7 @@ function ImgLogoFlam() {
     return Flam
 }
 
-/* Img Array */
+/** Img Array  **/
 function VideoGalau() {
     const idGalau = pickRandom([
         "c83205eeeecceb9e4db87",
@@ -663,7 +661,7 @@ function VideoGalau() {
     return `https://telegra.ph/file/${idGalau}.mp4`
 }
 
-/* Img Array */
+/** Img Array  **/
 function ImgEstetik() {
     const DocImg = pickRandom([
         "https://i.pinimg.com/originals/b4/2c/9c/b42c9c0244e1d940f40006f528274fcb.png",
@@ -770,7 +768,7 @@ function ImgEstetik() {
     return DocImg
 }
 
-/* Img Array */
+/** Img Array  **/
 function ImgWaifu() {
     const Waif = [
         "https://i.pinimg.com/originals/8e/b2/06/8eb206322336c1e107c187fe338c42f5.jpg",
@@ -878,7 +876,7 @@ function ImgWaifu() {
 }
 
 
-/* Img Array */
+/** Img Array  **/
 function ImgBoneka() {
     const Boneka = [
         "https://i.pinimg.com/originals/da/a5/6a/daa56a7378ccf4914a1fdc1441515b9a.jpg",
@@ -985,7 +983,7 @@ function ImgBoneka() {
     return Boneka
 }
 
-/* Apa Kabar */
+/** Apa Kabar  **/
 function Sapa() {
     const Apa = pickRandom(["Apa kabar ", "Halo ", "Hai "])
     return Apa
