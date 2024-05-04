@@ -10,8 +10,8 @@ process.env.V8_TURBOFAN_INTRINSICS = '1';
 
 const totalMemMB = Math.floor(os.totalmem() / (1024 * 1024));
 process.env.UV_THREADPOOL_SIZE = totalMemMB <= 1024 ? '4' : totalMemMB <= 2048 ? '8' : (os.cpus().length * 2).toString();
-process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --abort-on-uncaught-exception --max-http-header-size=8192 --stack-trace-limit=50 --max-semi-space-size=256 --harmony --experimental-modules`;
-process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)} --harmony`;
+process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --initial-old-space-size=${Math.floor(totalMemMB * 0.4)} --abort-on-uncaught-exception`;
+process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)}`;
 
 import {
     loadConfig
@@ -1166,17 +1166,17 @@ async function _quickTest() {
 }
 
 async function createCertificate() {
-    const certDir = path.join(process.cwd(), 'ssl', 'certs');
-    const certFilePath = path.join(certDir, 'lets-encrypt-x3-cross-signed.pem');
-    existsSync(certDir) || mkdirSync(certDir, {
-        recursive: true
-    });
-    try {
-        const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt');
-        const buffer = await response.text() || '';
-        writeFileSync(certFilePath, buffer);
-        process.env.NODE_EXTRA_CA_CERTS = certFilePath || '';
-    } catch (error) {
-        console.error('Error downloading certificate:', error);
+    const certFilePath = path.join(process.cwd(), 'ssl', 'certs', 'lets-encrypt-x3-cross-signed.pem');
+
+    if (!existsSync(certFilePath)) {
+        try {
+            const buffer = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt').then(response => response.text()).catch(() => '');
+            writeFileSync(certFilePath, buffer);
+        } catch (error) {
+            console.error('Error downloading certificate:', error);
+            return;
+        }
     }
-};
+
+    process.env.NODE_EXTRA_CA_CERTS = certFilePath;
+}
