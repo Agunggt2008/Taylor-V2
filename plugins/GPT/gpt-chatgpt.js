@@ -1,4 +1,5 @@
-import fetch from "node-fetch"
+import fetch from "node-fetch";
+import cheerio from "cheerio";
 
 let handler = async (m, {
     conn,
@@ -9,19 +10,19 @@ let handler = async (m, {
     let text = args.length >= 1 ? args.slice(0).join(" ") : (m.quoted && m.quoted?.text || m.quoted?.caption || m.quoted?.description) || null;
     if (!text) return m.reply(`Input query text!\n*Example:*\n- *${usedPrefix + command}* hello`)
     try {
-        let res = await ChatGptV1(text)
+        let res = await bardaifree(text)
         await m.reply(res)
     } catch (e) {
         try {
-            let res = await ChatGptV2(text)
+            let res = await chatgptss(text)
             await m.reply(res)
         } catch (e) {
             try {
-                let res = await ChatGptV3(text)
-                await m.reply(res[0].generated_text)
-            } catch (e) {
-                await m.reply(eror)
-            }
+            let res = await bartai(text)
+            await m.reply(res)
+        } catch (e) {
+            await m.reply(eror)
+        }
         }
     }
 }
@@ -32,47 +33,61 @@ handler.command = /^(chatgpt)$/i
 export default handler
 
 /* New Line */
-async function ChatGptV1(query) {
+async function processChat(baseLink, message) {
     try {
-        const response = await fetch(`https://shanti.quest/gpt?prompt=${query}`);
-        if (!response.ok) throw new Error('Network response was not OK');
-        return await response.text();
-    } catch (error) {
-        console.error('Error:', error.message);
-    }
-}
+        const html = await (await fetch(baseLink)).text();
+        const $ = cheerio.load(html);
 
+        const info = $('.wpaicg-chat-shortcode').map((index, element) => {
+            return Object.fromEntries(Object.entries(element.attribs));
+        }).get();
+        
+        const data = new FormData();
+        data.append('_wpnonce', info[0]['data-nonce']);
+        data.append('post_id', info[0]['data-post-id']);
+        data.append('action', 'wpaicg_chatbox_message');
+        data.append('message', message);
+        const response = await fetch(baseLink + '/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        });
 
-async function ChatGptV2(query) {
-    try {
-        const response = await fetch(`https://api.yanzbotz.my.id/api/ai/gpt3?query=${query}`);
-        if (!response.ok) {
-            throw new Error('Network response was not OK');
-        }
-        const data = await response.json();
-        return data.result;
+        if (!response.ok) throw new Error('Network response was not ok');
+        const { data } = await response.json();
+
+        return data || '';
     } catch (error) {
-        console.error('Error:', error);
+        console.error('An error occurred:', error.message);
         throw error;
     }
 }
 
-async function ChatGptV3(query) {
+async function chatgptss(message) {
     try {
-        const response = await fetch(
-            "https://api-inference.huggingface.co/models/gpt2", {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: "Bearer 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",
-                },
-                body: JSON.stringify({
-                    inputs: query
-                }),
-            }
-        );
-        return await response.json();
+        const data = await processChat('https://chatgptss.org', message);
+        return data;
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('An error occurred:', error.message);
+        throw error;
+    }
+}
+
+async function bardaifree(message) {
+    try {
+        const data = await processChat('https://bardaifree.com', message);
+        return data;
+    } catch (error) {
+        console.error('An error occurred:', error.message);
+        throw error;
+    }
+}
+
+async function bartai(message) {
+    try {
+        const data = await processChat('https://bartai.org', message);
+        return data;
+    } catch (error) {
+        console.error('An error occurred:', error.message);
+        throw error;
     }
 }
