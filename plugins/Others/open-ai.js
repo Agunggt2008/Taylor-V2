@@ -25,13 +25,20 @@ async function CleanDx(your_qus) {
         let linkaiList = [];
         let Baseurl = "https://vipcleandx.xyz/";
         linkaiList.push({
-            content: your_qus,
-            role: "user"
-        });
-        linkaiList.push({
-            content: "Anda asisten AI, harap menggunakan bahasa Indonesia.",
-            role: "system"
-        });
+    content: your_qus,
+    role: "user",
+    nickname: "",
+    time: Date.now(),
+    isMe: true
+  });
+  linkaiList.push({
+    content: "Anda asisten AI, harap menggunakan bahasa Indonesia.",
+    role: "assistant",
+    nickname: "AI",
+    time: Date.now(),
+    isMe: false
+  });
+  
         if (linkaiList.length > 10) linkaiList.shift();
         let response = await fetch(Baseurl + "v1/chat/gpt/", {
             method: "POST",
@@ -40,12 +47,17 @@ async function CleanDx(your_qus) {
                 "X-Forwarded-For": Array.from({
                     length: 4
                 }, () => Math.floor(Math.random() * 256)).join('.'),
-                "Referer": Baseurl,
-                "accept": "application/json, text/plain, */*"
+                Referer: Baseurl,
+                Accept: "application/json, text/plain, */*"
             },
             body: JSON.stringify({
                 list: linkaiList,
-                prompt: your_qus
+      id: Math.floor(Math.random() * 256),
+      title: your_qus,
+      prompt: "",
+      temperature: 0.5,
+      models: 0,
+      continuous: true
             })
         });
         return await response.text();
