@@ -143,5 +143,5 @@ function clockString(ms) {
     const hours = duration.hours();
     const minutes = duration.minutes();
     const seconds = duration.seconds();
-    return `☀️ * ${days}* Days\n🕐 * ${hours}* Hours\n⏰ * ${minutes}* Minutes\n⏱️ * ${seconds}* Seconds`;
+    return `☀️ *${days}* Days\n🕐 *${hours}* Hours\n⏰ *${minutes}* Minutes\n⏱️ *${seconds}* Seconds`;
 };
