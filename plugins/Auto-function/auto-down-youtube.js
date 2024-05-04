@@ -6,6 +6,7 @@ import {
 const limit = 80;
 
 export async function before(m) {
+if (m.isBaileys || !m.text) return false;
     const regex = /^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_-]{11}$/;
     const matches = m.text.trim().match(regex);
     const chat = global.db.data.chats[m.chat];
