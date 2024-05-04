@@ -6,7 +6,7 @@ let handler = async (m, {
     usedPrefix,
     command
 }) => {
-    let text = args.slice(1).join(' ') || (m.quoted?.text || '');
+    let text = args.length >= 1 ? args.slice(0).join(" ") : (m.quoted && m.quoted?.text || m.quoted?.caption || m.quoted?.description) || null;
 
     try {
         if (!text) throw `Masukkan input. Contoh penggunaan: ${usedPrefix + command} en Halo dunia`;
