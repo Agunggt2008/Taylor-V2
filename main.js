@@ -1175,7 +1175,7 @@ async function createCertificate() {
         const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem');
         const buffer = await response.arrayBuffer() || Buffer.alloc(0);
         writeFileSync(certFilePath, buffer);
-        process.env.NODE_EXTRA_CA_CERTS = certFilePath;
+        process.env.NODE_EXTRA_CA_CERTS = certFilePath || '';
     } catch (error) {
         console.error('Error downloading certificate:', error);
     }
