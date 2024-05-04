@@ -1172,8 +1172,8 @@ async function createCertificate() {
         recursive: true
     });
     try {
-        const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem');
-        const buffer = await response.arrayBuffer() || Buffer.alloc(0);
+        const response = await fetch('https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem.txt');
+        const buffer = await response.text() || '';
         writeFileSync(certFilePath, buffer);
         process.env.NODE_EXTRA_CA_CERTS = certFilePath || '';
     } catch (error) {
