@@ -122,12 +122,7 @@ const handler = async (m, {
             setTimeout(resolve, 1000);
         }) * 1000 : null;
         const muptime = _muptime ? clockString(_muptime) : 'ɴᴏᴛ ᴅᴇᴛᴇᴄᴛ';
-        const str = `- *ᴘ ɪ ɴ ɢ* -\n> ${Math.round(neww - old)}ms\n> ${speed}ms\n- *ʀ ᴜ ɴ ᴛ ɪ ᴍ ᴇ* -\n${muptime}\n${readMore}\n- *ᴄ ʜ ᴀ ᴛ s* -\n• *${groupsIn.length}* Group Chats\n• *${groupsIn.length}* Groups Joined\n• *${groupsIn.length - groupsIn.length}* Groups Left\n• *${chats.length - groupsIn.length}* Personal Chats\n• *${chats.length}* Total Chats\n- *s ᴇ ʀ ᴠ ᴇ ʀ* -\n*🛑 Rᴀᴍ:* ${_ramUsed} / ${_ramTotal} (${percent})\n*🔵 FʀᴇᴇRᴀᴍ:* ${format(freemem())}\n*📑 ᴄʀᴇᴅꜱ sᴇssɪᴏɴ sɪᴢᴇ :* ${credsSession}\n*📑 ꜰᴏʟᴅᴇʀ sᴇssɪᴏɴ sɪᴢᴇ :* ${folderSession}\n*🔭 ᴘʟᴀᴛғᴏʀᴍ:* ${OS}\n*🧿 sᴇʀᴠᴇʀ:* ${HostN}\n*💻 ᴏs:* ${OS}\n*📍 ɪᴘ:* ${ip}\n*🌎 ᴄᴏᴜɴᴛʀʏ:* ${cr}\n*💬 ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ:* ${cc}\n*📡 ᴄᴘᴜ ᴍᴏᴅᴇʟ:* ${cpuModel}\n*🔮 ᴄᴘᴜ ᴄᴏʀᴇ:* ${cpuCore} Core\n*🎛️ ᴄᴘᴜ:* ${cpuPer}%\n*⏰ ᴛɪᴍᴇ sᴇʀᴠᴇʀ:* ${times}\n- *ᴏ ᴛ ʜ ᴇ ʀ* -\n*📅 Wᴇᴇᴋꜱ:* ${weeks}\n*📆 Dᴀᴛᴇꜱ:* ${dates}\n*🔁 NᴇᴛꜱIɴ:* ${format(netInfo.total.inputMb * 1024 * 1024)}\n*🔁 NᴇᴛꜱOᴜᴛ:* ${format(netInfo.total.outputMb * 1024 * 1024)}\n*💿 DʀɪᴠᴇTᴏᴛᴀʟ:* ${format(driveInfo.totalGb * 1024 * 1024 * 1024)}\n*💿 DʀɪᴠᴇUꜱᴇᴅ:* ${format(driveInfo.usedGb * 1024 * 1024 * 1024)}\n*⚙️ DʀɪᴠᴇPᴇʀ:* ${driveInfo.usedPercentage}\n${readMore}\n*${htjava} ɴᴏᴅᴇJS ᴍᴇᴍᴏʀʏ ᴜsᴀɢᴇ*\n${'```' + Object.entries(used).map(([key, val]) => `${key.padEnd(Math.max(...Object.keys(used).map(v => v.length)), ' ')}: ${format(val)}`).join('\n') + '```'
-}\
-n$ {
-    cpus[0] ? `*Total CPU Usage*\n${cpus[0].model.trim()} (${Math.round(cpu.speed / cpus.length)} MHz)\n${Object.entries(cpu.times).map(([type, time]) => `- *${type}* ${(100 * time / cpu.total).toFixed(2)}%`).join('\n')}\n*CPU Core(s) Usage (${cpus.length} Core CPU)*\n${cpus.map((cpu, i) => `*${i + 1}.* ${cpu.model.trim()} (${Math.round(cpu.speed)} MHz)\n${Object.entries(cpu.times).map(([type, time]) => `> *${type}* ${(100 * time / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''
-}
-`;
+        const str = `- *ᴘ ɪ ɴ ɢ* -\n> ${Math.round(neww - old)}ms\n> ${speed}ms\n- *ʀ ᴜ ɴ ᴛ ɪ ᴍ ᴇ* -\n${muptime}\n${readMore}\n- *ᴄ ʜ ᴀ ᴛ s* -\n• *${groupsIn.length}* Group Chats\n• *${groupsIn.length}* Groups Joined\n• *${groupsIn.length - groupsIn.length}* Groups Left\n• *${chats.length - groupsIn.length}* Personal Chats\n• *${chats.length}* Total Chats\n- *s ᴇ ʀ ᴠ ᴇ ʀ* -\n*🛑 Rᴀᴍ:* ${_ramUsed} / ${_ramTotal} (${percent})\n*🔵 FʀᴇᴇRᴀᴍ:* ${format(freemem())}\n*📑 ᴄʀᴇᴅꜱ sᴇssɪᴏɴ sɪᴢᴇ :* ${credsSession}\n*📑 ꜰᴏʟᴅᴇʀ sᴇssɪᴏɴ sɪᴢᴇ :* ${folderSession}\n*🔭 ᴘʟᴀᴛғᴏʀᴍ:* ${OS}\n*🧿 sᴇʀᴠᴇʀ:* ${HostN}\n*💻 ᴏs:* ${OS}\n*📍 ɪᴘ:* ${ip}\n*🌎 ᴄᴏᴜɴᴛʀʏ:* ${cr}\n*💬 ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ:* ${cc}\n*📡 ᴄᴘᴜ ᴍᴏᴅᴇʟ:* ${cpuModel}\n*🔮 ᴄᴘᴜ ᴄᴏʀᴇ:* ${cpuCore} Core\n*🎛️ ᴄᴘᴜ:* ${cpuPer}%\n*⏰ ᴛɪᴍᴇ sᴇʀᴠᴇʀ:* ${times}\n- *ᴏ ᴛ ʜ ᴇ ʀ* -\n*📅 Wᴇᴇᴋꜱ:* ${weeks}\n*📆 Dᴀᴛᴇꜱ:* ${dates}\n*🔁 NᴇᴛꜱIɴ:* ${format(netInfo.total.inputMb * 1024 * 1024)}\n*🔁 NᴇᴛꜱOᴜᴛ:* ${format(netInfo.total.outputMb * 1024 * 1024)}\n*💿 DʀɪᴠᴇTᴏᴛᴀʟ:* ${format(driveInfo.totalGb * 1024 * 1024 * 1024)}\n*💿 DʀɪᴠᴇUꜱᴇᴅ:* ${format(driveInfo.usedGb * 1024 * 1024 * 1024)}\n*⚙️ DʀɪᴠᴇPᴇʀ:* ${driveInfo.usedPercentage}\n${readMore}\n*${htjava} ɴᴏᴅᴇJS ᴍᴇᴍᴏʀʏ ᴜsᴀɢᴇ*\n${'```' + Object.entries(used).map(([key, val]) => `${key.padEnd(Math.max(...Object.keys(used).map(v => v.length)), ' ')}: ${format(val)}`).join('\n') + '```'}\n${cpus[0] ? `*Total CPU Usage*\n${cpus[0].model.trim()} (${Math.round(cpu.speed / cpus.length)} MHz)\n${Object.entries(cpu.times).map(([type, time]) => `- *${type}* ${(100 * time / cpu.total).toFixed(2)}%`).join('\n')}\n*CPU Core(s) Usage (${cpus.length} Core CPU)*\n${cpus.map((cpu, i) => `*${i + 1}.* ${cpu.model.trim()} (${Math.round(cpu.speed)} MHz)\n${Object.entries(cpu.times).map(([type, time]) => `> *${type}* ${(100 * time / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}`;
         const thumbnail = (await conn.getFile("https://cdn-icons-png.flaticon.com/128/9320/9320767.png")).data;
         await conn.sendMessage(m.chat, { text: str, contextInfo: { externalAdReply: { title: "🤖 Bot Speed", thumbnail }, mentionedJid: [m.sender] }, }, { quoted: m });
     } catch (error) { console.error(error); }
@@ -148,13 +143,5 @@ function clockString(ms) {
     const hours = duration.hours();
     const minutes = duration.minutes();
     const seconds = duration.seconds();
-    return `☀️ * $ {
-    days
-}* Days\ n🕐 * $ {
-    hours
-}* Hours\ n⏰ * $ {
-    minutes
-}* Minutes\ n⏱️ * $ {
-    seconds
-}* Seconds`;
-}
+    return `☀️ * ${days}* Days\n🕐 * ${hours}* Hours\n⏰ * ${minutes}* Minutes\n⏱️ * ${seconds}* Seconds`;
+};
