@@ -13,9 +13,9 @@ const handler = async (m, {
             activeFeatures.includes(f) ? !global.db.data.chats[m.chat][f] : global.db.data.chats[m.chat][f];
 
         const status = isActive ? "ON" : "OFF";
-        const header = `${(i + 1).toString().padEnd(2)}. ${f.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).padEnd(18)} ${isActive ? "ON" : "OFF"}`;
+        const header = `${(i + 1).toString().padEnd(2)}. ${f.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).padEnd(18)}`;
         const id = `${usedPrefix + command} ${i + 1}`;
-        const description = isActive ? `Switch ON` : `Switch OFF`;
+        const description = isActive ? `Switch OFF` : `Switch ON`;
         const row = {
             header,
             id,
