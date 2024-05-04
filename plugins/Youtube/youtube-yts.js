@@ -13,7 +13,7 @@ const handler = async (m, {
 
         const videoItems = moreItems.filter(item => item.type === 'video');
         const formattedData = {
-            title: "                *[ Youtube Search ]*\n>                 BEST MATCH\n\n",
+            title: "                *[ Youtube Search ]*\n                 BEST MATCH\n\n",
             rows: [{
                     title: "Best",
                     highlight_label: "Best match",
