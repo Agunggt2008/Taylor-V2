@@ -17,7 +17,7 @@ const potongString = (str) => str.length <= 80 ? str : str.slice(0, 80);
 
 async function profileImage(url, name, hasilPotong) {
     try {
-        const captcha = ImageCanvas(url, name, hasilPotong);
+        const captcha = ImageCanvas(url, name, hasilPotong, null);
         const res = await fetch(captcha);
         const profileBuffer = (await res.arrayBuffer());
         return profileBuffer;
@@ -28,7 +28,7 @@ async function profileImage(url, name, hasilPotong) {
 }
 
 
-let handler = async (m, {
+const handler = async (m, {
     conn,
     args,
     usedPrefix,
@@ -36,9 +36,10 @@ let handler = async (m, {
     groupMetadata,
     participants
 }) => {
+try {
     const adminList = groupMetadata.participants || participants;
-    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
-    let {
+    const who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
+    const {
         exp,
         limit,
         level,
@@ -51,14 +52,14 @@ let handler = async (m, {
         age,
         banned,
         pasangan
-    } = global.db.data.users[who];
-    let {
+    } = global.db.data.users[who] || {};
+    const {
         min,
         xp,
         max
     } = xpRange(level, global.multiplier);
-    let name = m.name.split("\n")[0];
-    let pp = await conn.profilePictureUrl(who).catch(_ => './src/avatar_contact.png');
+    const name = m.name.split("\n")[0];
+    const pp = await conn.profilePictureUrl(who, 'image').catch(_ => './src/avatar_contact.png');
     if (typeof global.db.data.users[who] == "undefined") {
         global.db.data.users[who] = {
             exp: 0,
@@ -79,8 +80,8 @@ let handler = async (m, {
             pasangan: "",
         };
     }
-    let math = max - xp;
-    let caption = `*YOUR PROFILE*
+    const math = max - xp;
+    const caption = `*YOUR PROFILE*
 *🏷️ Nama:* *(${name})* ${registered ? '(' + name + ') ' : ''} ( @${who.split("@")[0]} )
 *❤️ Pasangan:*  ${pasangan ? `@${pasangan.split("@")[0]}` : `Tidak Punya`}
 *💲 Money:* *RP* ${money}
@@ -91,8 +92,8 @@ let handler = async (m, {
 
     const contohStringPanjang = `Ini adalah profil dari ${name}, seorang ${checkUser(m.sender, adminList)} di ${groupMetadata.subject}.`;
     const hasilPotong = potongString(contohStringPanjang);
-    const url = await conn.profilePictureUrl(who).catch(_ => './src/avatar_contact.png');
-    const profileBuffer = await profileImage(url, m.name.split("\n")[0], hasilPotong);
+    
+    const profileBuffer = await profileImage(pp, m.name.split("\n")[0], hasilPotong);
     try {
         await conn.sendFile(m.chat, profileBuffer, '', caption, m, null, {
             mentions: await conn.parseMention(caption)
@@ -102,9 +103,12 @@ let handler = async (m, {
             mentions: await conn.parseMention(caption)
         });
     }
+    } catch (e) {
+        throw e;
+    }
 };
 
-handler.help = ['profile'].map(v => v + ' <url>');
+handler.help = ['profile'].map(v => v + ' <user>');
 handler.tags = ['rpg'];
 handler.command = /^(pro(fil)?(file)?)$/i;
 handler.group = true
