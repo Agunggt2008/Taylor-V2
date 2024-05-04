@@ -10,7 +10,7 @@ process.env.V8_TURBOFAN_INTRINSICS = '1';
 
 const totalMemMB = Math.floor(os.totalmem() / (1024 * 1024));
 process.env.UV_THREADPOOL_SIZE = totalMemMB <= 1024 ? '4' : totalMemMB <= 2048 ? '8' : (os.cpus().length * 2).toString();
-process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --abort-on-uncaught-exception --max-http-header-size=8192 --stack-trace-limit=50 --max-semi-space-size=256 --strict --harmony --experimental-modules`;
+process.env.NODE_OPTIONS = `--max-old-space-size=${Math.floor(totalMemMB * 0.8)} --abort-on-uncaught-exception --max-http-header-size=8192 --stack-trace-limit=50 --max-semi-space-size=256 --harmony --experimental-modules`;
 process.env.V8_OPTIONS = `--max_old_space_size=${Math.floor(totalMemMB * 0.8)} --initial_old_space_size=${Math.floor(totalMemMB * 0.4)} --harmony`;
 
 import {
