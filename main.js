@@ -810,7 +810,7 @@ async function filesInit() {
                 return {
                     moduleName,
                     filePath: file,
-                    message: e.message,
+                    message: err.message,
                     success: false
                 };
             } else {
