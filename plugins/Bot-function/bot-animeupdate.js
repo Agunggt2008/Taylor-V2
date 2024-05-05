@@ -23,9 +23,9 @@ export async function before(m) {
             let detailAnime = await getDetailAnime(url);
             let txt = `Name: ${detailAnime.title}\nEpisode: ${detailAnime.episode}\nSinopsis: ${detailAnime.sinopsis}\nThumbnail: ${detailAnime.cover}`;
             let list = `Download:\n${Object.keys(detailAnime.download).map((type, index) => `${index + 1}. (${type}) ${detailAnime.download[type].link}`).join('\n')}`;
-            let quoted = await this.sendButtonMessages(m.chat, `${txt}\n${list}`, detailAnime.update, cover, [], null, [
+            let quoted = await this.sendButtonMessages(m.chat, [[`${txt}\n${list}`, detailAnime.update, cover, [], null, [
                 ['Source', url]
-            ], null, fakes);
+            ], null]], fakes);
             if (/Movie/.test(detailAnime.episode)) return this.reply(m.chat, 'Bot cannot send video files because they are too large...', quoted);
             let res = await downloadAnime(detailAnime.download[0]?.link || detailAnime.download[1]?.link || detailAnime.download[2]?.link || detailAnime.download[3]?.link).catch(() => null);
             if (!res) return this.reply(m.chat, 'Download link not available yet...', quoted);
