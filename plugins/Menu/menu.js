@@ -486,11 +486,11 @@ let handler = async (m, {
             id: 0
         }
         if (conn.temamenu.id === 0) {
-            await conn.sendButtonMessages(m.chat, caption, wm, logo, [
+            await conn.sendButtonMessages(m.chat, [[caption, wm, logo, [
                 ['Menu List', _p + 'menulist']
             ], null, [
                 ['Official Group', sgc]
-            ], null, m, {
+            ], null, m]], {
                 contextInfo: {
                     mentionedJid: [m.sender]
                 }

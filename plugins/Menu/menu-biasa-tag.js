@@ -764,13 +764,13 @@ ${v.rowId}`.trim()
                 id: 0
             }
             if (conn.temamenu.id === 0) {
-                return await conn.sendButtonMessages(m.chat, listMessage.text, listMessage.footer, logo, [
+                return await conn.sendButtonMessages(m.chat, [[listMessage.text, listMessage.footer, logo, [
                     ['Menu List', _p + 'menulist']
                 ], null, [
                     ['Official Group', sgc]
                 ], [
                     [listMessage.buttonText, listMessage.sections]
-                ], m, {
+                ]]], m, {
                     contextInfo: {
                         mentionedJid: [m.sender]
                     }
@@ -1009,13 +1009,13 @@ ${v.rowId}`.trim()
             id: 0
         }
         if (conn.temamenu.id === 0) {
-            await conn.sendButtonMessages(m.chat, caption, listMessage.footer, logo, [
+            await conn.sendButtonMessages(m.chat, [[caption, listMessage.footer, logo, [
                 ['Menu All', _p + 'allmenu']
             ], null, [
                 ['Official Group', sgc]
             ], [
                 [listMessage.buttonText, listMessage.sections]
-            ], m, {
+            ]]], m, {
                 contextInfo: {
                     mentionedJid: [m.sender]
                 }
