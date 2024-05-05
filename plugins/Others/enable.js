@@ -46,9 +46,9 @@ const handler = async (m, {
 
     const listEnab = `🛠️ *DAFTAR FITUR*\n${featureStatus}\n*📝 CARA MENGGUNAKAN:*\n→ ${usedPrefix + command} [nomor atau nama fitur]`.trimStart();
 
-    if (!features.includes(featureName)) return sections.length ? await conn.sendButtonMessages(m.chat, listEnab, wm, null, [], null, [], [
+    if (!features.includes(featureName)) return sections.length ? await conn.sendButtonMessages(m.chat, [[listEnab, wm, null, [], null, [], [
         ["Open Here", sections]
-    ], m, {
+    ], m]], {
         contextInfo: {
             mentionedJid: await conn.parseMention(m.text)
         }
