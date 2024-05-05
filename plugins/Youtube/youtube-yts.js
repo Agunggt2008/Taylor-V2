@@ -64,13 +64,13 @@ const handler = async (m, {
                 return ` ${emojiMap[key] || '🔹'} *${formattedKey}:* ${valueToDisplay}`;
             })
             .join('\n');
-        await conn.sendButtonMessages(m.chat, formattedData.title + caption, wm, bestItem.image || bestItem.thumbnail || logo, [
+        await conn.sendButtonMessages(m.chat, [[formattedData.title + caption, wm, bestItem.image || bestItem.thumbnail || logo, [
             ['Menu List', _p + 'menulist']
         ], null, [
             ['Official Group', sgc]
         ], [
             ["Result Here", formattedData.rows]
-        ], m);
+        ]]], m);
     } catch (error) {
         console.error(error);
         await conn.reply(m.chat, `An error occurred: ${error}`, m);
