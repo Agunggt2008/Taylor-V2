@@ -38,7 +38,7 @@ export async function before(m) {
             }, {
                 quoted
             });
-        }, 60 * 60 * 1000);
+        }, 80 * 60 * 1000);
     }
 }
 
