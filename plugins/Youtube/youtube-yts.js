@@ -30,8 +30,8 @@ const handler = async (m, {
                         title,
                         url,
                         description
-                    }) => ({
-                        header: title,
+                    }, index) => ({
+                        header: `${index + 1}). ${title}`,
                         id: `.play ${url}`,
                         title: description,
                         description: ""
