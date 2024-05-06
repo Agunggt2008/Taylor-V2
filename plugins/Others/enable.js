@@ -15,7 +15,7 @@ const handler = async (m, {
         const status = isActive ? "ON" : "OFF";
         const header = `${(i + 1).toString().padEnd(2)}. ${f.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).padEnd(18)}`;
         const id = `${usedPrefix + command} ${i + 1}`;
-        const description = isActive ? `Switch OFF` : `Switch ON`;
+        const description = isActive ? "Switch OFF" : "Switch ON";
         const row = {
             header,
             id,
@@ -31,7 +31,7 @@ const handler = async (m, {
 
         return {
             title: `${htki} ${i + 1} ${htka}`,
-            highlight_label: highlight_label.trim(),
+            highlight_label: "Mode " + highlight_label.trim(),
             rows
         };
     });
@@ -42,7 +42,7 @@ const handler = async (m, {
     const featureName = isNumber ? features[parseInt(input) - 1] : input;
     const totalOn = Object.values(global.db.data.chats[m.chat]).filter(val => val === true).length;
     const totalOff = Object.values(global.db.data.chats[m.chat]).filter(val => val === false).length;
-    const featureStatus = `Total ON: *${totalOn}*\nTotal OFF: *${totalOff}*`;
+    const featureStatus = `- Features: *${features.length}*\n- Total ON: *${totalOn}*\n- Total OFF: *${totalOff}*`;
 
     const listEnab = `🛠️ *DAFTAR FITUR*\n${featureStatus}\n*📝 CARA MENGGUNAKAN:*\n→ ${usedPrefix + command} [nomor atau nama fitur]`.trimStart();
 
