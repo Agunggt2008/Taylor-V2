@@ -33,10 +33,10 @@ async function loadConfig() {
 
         /** Oᴡɴᴇʀ number  **/
         global.owner = [
-            ["6282195322106", "️𝑾𝒖𝒅𝒚𝒔𝒐𝒇𝒕 - 𝑶𝒘𝒏𝒆𝒓", true]
+            ["6285608860530", "️Agung", true]
         ]
-        global.mods = ["6282195322106"]
-        global.prems = ["6282195322106"]
+        global.mods = ["6285608860530"]
+        global.prems = ["6285608860530"]
 
         /** Website  **/
         global.APIs = {
@@ -76,19 +76,19 @@ async function loadConfig() {
         global.xyro = "yqiBQF86F4"
 
         /** Number  **/
-        global.nomorbot = "6281779570422"
-        global.nomorown = "6282195322106"
-        global.namebot = " ᴛᴀyʟᴏʀ-ʙᴏᴛ あ⁩ "
-        global.nameown = "「 𝑾𝒖𝒅𝒚𝒔𝒐𝒇𝒕 」"
+        global.nomorbot = "62895342805038"
+        global.nomorown = "6285608860530"
+        global.namebot = " ᴛᴀy-ʙᴏᴛ あ⁩ "
+        global.nameown = "「 Agung 」"
 
         /** Random  **/
         global.pmenus = pickRandom(["乂", "◈", "➭", "ଓ", "⟆•", "⳻", "•", "↬", "◈", "⭑", "ᯬ", "◉", "᭻", "»", "〆", "々", "⛥", "✗", "⚜", "⚚", "♪"])
         global.htjava = pickRandom(["乂", "⛶", "❏", "⫹⫺", "☰", "⎔", "✦", "⭔", "⬟", "⛊", "⚝"])
 
         /** Watermark  **/
-        global.wm = "                「 ᴛᴀyʟᴏʀ-ʙᴏᴛ あ⁩ 」"
+        global.wm = "                「 ᴛᴀy-ʙᴏᴛ あ⁩ 」"
         global.wm2 = "꒷︶꒷꒥꒷ ‧₊˚ ꒰ฅ˘օառɛʀ˘ฅ ꒱ ‧₊˚꒷︶꒷꒥꒷"
-        global.wm3 = htjava + " ᴛᴀyʟᴏʀ-ʙᴏᴛ"
+        global.wm3 = htjava + " ᴛᴀy-ʙᴏᴛ"
 
         /** Thumbnail  **/
         global.giflogo = VideoGalau()
@@ -96,11 +96,11 @@ async function loadConfig() {
         global.flaaa = ImgLogoDynamic()
 
         /** Link  **/
-        global.sig = "https://www.instagram.com/wudysoft"
-        global.sgh = "https://www.github.com/AyGemuy"
-        global.sgc = "https://s.id/Taylor-V2"
-        global.sdc = "https://www.discord.com/wudysoft"
-        global.snh = "https://www.tiktok.com/@upload_file"
+        global.sig = "https://www.instagram.com/"
+        global.sgh = "https://www.github.com/Agunggt2008"
+        global.sgc = "https://s.id/kontol"
+        global.sdc = "https://www.discord.com"
+        global.snh = "https://www.tiktok.com/@uploade"
         global.sfb = "https://www.facebook.com/"
         global.syt = "https://www.youtube.com/"
 
@@ -163,7 +163,7 @@ async function loadConfig() {
         global.emojis = pickRandom(["👑", "🎗", "️🗿", "🕹", "️💡", "🪄", "🎈", "🎊", "🔖", "📍", "❤", "‍🔥", "💤", "💭", "🕚", "💬", "🚩", "🎐", "🍃", "🌿", "🥀", "✨", "⚡", "☂️"])
         global.packname = "𝑴𝒂𝒅𝒆 𝒃𝒚"
         global.stickpack = packname
-        global.author = "𝑻𝒂𝒚𝒍𝒐𝒓 乂 𝑾𝒖𝒅𝒚𝒔𝒐𝒇𝒕"
+        global.author = "arg"
         global.stickauth = author + "\nwa.me/" + nomorbot
         global.multiplier = 69
 
